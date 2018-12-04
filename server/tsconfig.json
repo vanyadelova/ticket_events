@@ -21,7 +21,7 @@
     "rootDir": "src/"
   },
   "include": [
-      "src/**/*"
+      "src/**/*", "../client/src/actions/comments.js"
   ],
   "exclude": [
       "node_modules",
