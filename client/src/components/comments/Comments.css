@@ -1,0 +1,12 @@
+.commentsBox {
+    padding: 30px;
+    color: black;  
+}
+
+.commentsBox p {
+    border-top: 1px solid rgb(211, 207, 207);
+}
+
+.purple {
+    color: blueviolet;
+}

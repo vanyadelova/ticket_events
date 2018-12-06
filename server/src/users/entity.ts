@@ -1,45 +1,71 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne, JoinColumn } from 'typeorm';
+import { BaseEntity } from 'typeorm/repository/BaseEntity';
 import { Exclude } from 'class-transformer';
-import { MinLength, IsString, IsEmail } from 'class-validator';
 import * as bcrypt from 'bcrypt';
-
+import Event from '../events/entity';
+import {Ticket} from '../tickets/entity';
+import Comment from '../comments/entity';
 
 @Entity()
-export default class User extends BaseEntity {
+export class User extends BaseEntity {
 
   @PrimaryGeneratedColumn()
-  id?: number
+  id?: number;
 
-  @IsString()
-  @MinLength(2)
-  @Column('text')
-  firstName: string
+  @Column('text', { nullable:true })
+  name: string;
 
-  @IsString()
-  @MinLength(2)
-  @Column('text')
-  lastName: string
+  @Column('text', { nullable:true })
+  lastName: string;
 
-  @IsEmail()
   @Column('text')
-  email: string
+  email: string;
 
-  @IsString()
-  @MinLength(8)
-  @Column('text')
+  @Column('text', { nullable:true })
+  phoneNumber: string;
+
+  @Column('text', { nullable:true })
+  @Exclude({toPlainOnly:true})
+  password: string;
+
+  @Column('boolean',{default: false})
   @Exclude({ toPlainOnly: true })
-  password: string
+  admin: boolean;
+
+  @OneToMany(_ => Event, event => event.user)
+  events: Event[];
+
+  @OneToMany(_ => Ticket, ticket => ticket.user)
+  tickets: Ticket[];
+
+  @OneToMany(_ => Comment, comment => comment.user)
+  comments: Comment[];
 
   async setPassword(rawPassword: string) {
-    const hash = await bcrypt.hash(rawPassword, 10)
-    this.password = hash
+    const hash = await bcrypt.hash(rawPassword, 10);
+    this.password = hash;
   }
 
   checkPassword(rawPassword: string): Promise<boolean> {
-    return bcrypt.compare(rawPassword, this.password)
+    return bcrypt.compare(rawPassword, this.password);
   }
 
-  // this is a relation, read more about them here:
-  // http://typeorm.io/#/many-to-one-one-to-many-relations
+}
+
+@Entity()
+export  class Customer extends BaseEntity {
   
+  @PrimaryGeneratedColumn()
+  id?: number;
+
+  @Column('text',{nullable: true})
+  userName: string;
+
+  @Column({default: 0})
+  ticketsOffered: number;
+
+  @OneToOne(_ => User)
+  @JoinColumn()
+  user: User;
+
 }

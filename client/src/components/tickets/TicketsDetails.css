@@ -1,0 +1,33 @@
+.chatBox {
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+#infoBody {
+    margin-bottom: 30px;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.frame {
+    width: 30%;
+    box-shadow: 10px 10px 13px -5px rgba(0,0,0,0.41);
+}
+
+.info {
+    width: 50%;
+    padding-left: 10px;
+    padding-top: 20px;
+    margin-left: 20px;
+    
+    text-align: center;
+}
+
+.editTicket:hover {
+    text-decoration: none;
+    cursor: pointer;
+}

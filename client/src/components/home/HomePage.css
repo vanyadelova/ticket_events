@@ -1,0 +1,39 @@
+.main {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.header {
+    text-align: center;
+    width: 100%;
+}
+
+.log {
+    font-size: 2rem;
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    cursor: pointer;
+    color: white;
+    border-radius: 50%;
+    border: 1px solid white;
+    padding: 0 6px;
+}
+
+.log:hover {
+    color: magenta;
+}
+
+.create {
+    position: relative;
+    bottom: 2px;
+    left: 7px;
+    cursor: pointer;
+}
+
+.headingsHome {
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0.6);
+}

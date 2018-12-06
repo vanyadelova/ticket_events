@@ -1,35 +1,49 @@
 import * as request from 'superagent';
-import { isExpired } from '../jwt'
-import { logout } from './users'
+import {baseUrl} from '../constants';
+import {logout} from './users';
+import {isExpired} from '../jwt';
 
-const baseUrl = 'http://localhost:4000'
+export const UPDATE_COMMENTS = 'UPDATE_COMMENTS';
+export const ADD_COMMENT = 'ADD_COMMENT';
+export const UPDATE_TICKETS_INFO = 'UPDATE_TICKETS_INFO';
 
-export const COMMENTS = 'COMMENTS'
-export const ADD_COMMENT = 'ADD_COMMENT'
+const updateComments = (comments) => ({
+    type: UPDATE_COMMENTS,
+    payload: comments
+});
 
-export const Comments = (ticketId) => (dispatch) => {
+const addComment = (comment) => ({
+    type: ADD_COMMENT,
+    payload: comment
+});
+
+const updateTicketsInfo = (ticketsInfo) => ({
+    type: UPDATE_TICKETS_INFO,
+    payload: ticketsInfo
+});
+
+export const getCommentsPerTicket = (ticketId) => (dispatch) => {
+
     request
-    .get(`${ baseUrl }/tickets/comments/${ ticketId }`)
-    .then( response => dispatch({
-        type: COMMENTS,
-        payload: response.body.comments
-    }))
-    .catch(err => alert(err))
-}
+        .get(`${baseUrl}/tickets/${ticketId}/comments`)
+        .then(result => dispatch(updateComments(result.body)))
+        .catch(err => console.error(err))
+};
 
-export const createComment = (comment) => (dispatch, getState) => {
-    const state = getState()
-    const jwt = state.currentUser.jwt
-  
-    if (isExpired(jwt)) return dispatch(logout())
-  
+export const createComment = (ticketId, message) => (dispatch, getState) => {
+
+    const state = getState();
+    if (!state.currentUser) return null;
+    const jwt = state.currentUser.jwt;
+    if (isExpired(jwt)) return dispatch(logout());
+   
     request
-      .post(`${baseUrl}/comments`)
+      .post(`${baseUrl}/tickets/${ticketId}/comments`)
       .set('Authorization', `Bearer ${jwt}`)
-      .send(comment)
-      .then(response => dispatch({
-          type: ADD_COMMENT,
-          payload: response.body
-      }))
+      .send({ message })
+      .then(result => {
+          dispatch(addComment(result.body.commentsPayload));
+          dispatch(updateTicketsInfo(result.body.infoPayload));
+        })
       .catch(err => console.error(err))
-  }
+};

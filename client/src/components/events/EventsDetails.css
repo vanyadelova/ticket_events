@@ -1,0 +1,27 @@
+#createT {
+    padding-left: 0;
+}
+
+.headings {
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.breadcrumbs {
+    position: absolute;
+    top: 0;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.breadcrumbs a{
+    text-decoration: none;
+    color: white;
+}
+
+.breadcrumbs a:hover {
+    color: magenta;
+}
+
+.breadcrumb>.active {
+    color:rgb(196, 196, 196);
+}

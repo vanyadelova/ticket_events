@@ -1,15 +1,19 @@
-import { combineReducers } from 'redux'
-import users from './users'
-import login from './login'
-import currentUser from './currentUser'
-import signup from './signup'
-import comments from './comments'
+import login from './login';
+import currentUser from './currentUser';
+import signup from './signup';
+import events from './events';
+import ticketsPerEvent from './ticketsPerEvent';
+import commentsPerTicket from './commentsPerTicket';
+import TicketsInfo from './TicketsInfo';
+import Customers from './Customers';
 
-export default combineReducers ( {
-  
-  users,
+export default {
   login,
   currentUser,
   signup,
-  comments,
-})
+  events,
+  ticketsPerEvent,
+  commentsPerTicket,
+  TicketsInfo,
+  Customers
+}
