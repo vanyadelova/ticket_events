@@ -12,7 +12,7 @@ class EventsList extends PureComponent {
     const events = this.props.events;
     
     if (events === null) return null;
-    const eventItems = events.map(event => <Link className='festivalItem' key={event.id} to={`home/events/${event.id}`} >
+    const eventItems = events.map(event => <Link className='eventItem' key={event.id} to={`home/events/${event.id}`} >
               <ListGroupItem header={event.name}>{event.description}
                   </ListGroupItem></Link>);
     

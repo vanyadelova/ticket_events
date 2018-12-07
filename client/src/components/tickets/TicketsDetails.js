@@ -73,11 +73,11 @@ class TicketsDetails extends PureComponent {
 
           {!this.props.authenticated && 
             <OverlayTrigger placement="bottom" overlay={tooltipLogin} >
-              <Link  className='log' to='/login'><i class="fas fa-user-astronaut"></i></Link>
+              <Link  className='log' to='/login'><i class="fas fa-user-alt"></i></Link>
             </OverlayTrigger>}
           {this.props.authenticated && 
             <OverlayTrigger placement="bottom" overlay={tooltipLogout} >
-              <a className='log' onClick={this.props.logout} alt="Login"><i class="fas fa-user-astronaut"></i></a>
+              <a className='log' onClick={this.props.logout} alt="Login"><i class="fas fa-user-alt"></i></a>
             </OverlayTrigger>}
           <h1>Ticket from {customers[ticket.user_id].user_name}</h1>
           <p>We calculated that the risk of this ticket being a fraud is: {risk}%</p>

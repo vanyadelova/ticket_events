@@ -71,7 +71,7 @@ class EventsDetails extends PureComponent {
 
                     {!this.props.authenticated && 
                         <OverlayTrigger placement="bottom" overlay={tooltipLogin} >
-                        <Link  className='log' to='/login'><i class="fas fa-user-alt"></i></Link>
+                        <Link  className='log' to='/login'><i className="fas fa-user-alt"></i></Link>
                         </OverlayTrigger>}
                     {this.props.authenticated && 
                         <OverlayTrigger placement="bottom" overlay={tooltipLogout} >
