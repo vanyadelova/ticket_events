@@ -8,41 +8,36 @@ import './EventsList.css';
 class EventsList extends PureComponent {
   state = {first: 0, last: 10 }
 
+  componentWillMount() {
+    this.props.getEvents()
+  }
+
   render() {
     const events = this.props.events;
-    
+    console.log(this.props.events)
     if (events === null) return null;
-    const eventItems = events.map(event => <Link className='eventItem' key={event.id} to={`home/events/${event.id}`} >
-              <ListGroupItem header={event.name}>{event.description}
-                  </ListGroupItem></Link>);
-    
-    return (
-      <div>
+    else {
+      return (
+
+        <div>     
+                  {console.log("here")}
+
+          <h1>EventsList</h1>   
+        { /* <ListGroup className='container'>*/} 
+            {this.props.events[0].map(event => (
+              <Link className='eventItem' key={event.id} to={`home/events/${event.id}`} >
+                { /*     <ListGroupItem header={event.name}>{event.description}</ListGroupItem>*/} 
+                  <li>{event.name}</li>
+              </Link>
+            ))}
+         { /*    </ListGroup>*/} 
           
-        { this.props.event.map((event) => {
-          return (
-            <React.Fragment>
-              <h3>{event.name}</h3>
-              <h5>{event.description}</h5>
-              <h5>{event.startdate}</h5>
-              <h5>{event.picture}</h5>
-              
-              
-            </React.Fragment>
-          )
-        }
-             // Replace with EventListItem component
+        </div>
+  
+      );
 
-          )
-        }
-        
-        <ListGroup className='container'>
-          {eventItems.slice(this.state.first,this.state.last)}
-        </ListGroup>
-        
-      </div>
-
-    );
+    }
+   
   }
 }
 

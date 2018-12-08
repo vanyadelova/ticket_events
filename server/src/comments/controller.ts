@@ -31,30 +31,30 @@ export default class CommentsController {
 
   @Authorized()
   @HttpCode(201)
-  @Post('/tickets/:ticketId([0-9]+)/comments')
+  @Post('/tickets/:ticketId/comments')
   async createComment(
       @Param('ticketId') ticketId: number,
       @Body() comment : validMessage,
       @CurrentUser() user: User
   ) {
       const ticket = await Ticket.findOneById(ticketId);
-      if(!ticket) throw new NotFoundError('Ticket not Found!');
+      if(!ticket) throw new NotFoundError('Ticket not Found Test!');
 
       const entity = await Comment.create(comment);
       entity.user = user;
       entity.ticket = ticket;
       const newComment = await entity.save();
               
-      const ticketInfo = await TicketInfo.findOne({ticket});
-      if(!ticketInfo) throw new NotFoundError('Not a ticket');
+  //    const ticketInfo = await TicketInfo.findOne({ticket});
+  //    if(!ticketInfo) throw new NotFoundError('Not a ticket');
 
-      ticketInfo.commentsReceived = ticketInfo.commentsReceived + 1;
-      await ticketInfo.save();
+  //    ticketInfo.commentsReceived = ticketInfo.commentsReceived + 1;
+  //    await ticketInfo.save();
       
       const [commentsPayload] = await Comment.query(`SELECT * FROM comments WHERE id=${newComment.id}`);
 
-      const infoPayload = await TicketInfo.query(`SELECT * FROM ticket_infos;`);
+  //    const infoPayload = await TicketInfo.query(`SELECT * FROM ticket_infos;`);
 
-      return {commentsPayload, infoPayload};
+      return {commentsPayload  /* ,infoPayload*/};
   }
 }

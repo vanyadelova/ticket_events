@@ -31,8 +31,8 @@ export default class TicketsController {
 
         const ticketsInfo = await TicketInfo.query('SELECT * FROM ticket_infos');
 
-        const tickets =  await Ticket.query(`SELECT * FROM tickets WHERE event_id=${eventId}`);
-
+        const tickets =  await Ticket.query(`SELECT * FROM tickets WHERE event_id=${eventId} `);
+//
         return {tickets, customers, ticketsInfo};
     }
 

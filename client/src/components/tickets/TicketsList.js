@@ -20,24 +20,41 @@ class TicketsList extends PureComponent {
 
   render() {
     const {  tickets, customers, ticketsInfo } = this.props;
-    if (tickets === null || customers === null || ticketsInfo === null ) return 'Loading...';
+    console.log("tickets")
+    console.log(tickets)
+
+    console.log("customers")
+    console.log(customers)
+
+    console.log("ticketsInfo")
+    console.log(ticketsInfo)
+
+
+    if ( customers === null || ticketsInfo === null ) return 'Loading...';
 
     const avgPrice = Object.values(tickets)
       .reduce((acc, ticket) => {
         return  acc + ticket.price
          },0) / Object.values(tickets).length;
 
-    const ticketsItem = tickets.map(ticket =>
+    const ticketsItem = this.props.tickets.map(ticket =>
+     // <Link className='ticketItem' key={ticket.id} to={`/home/events/${this.props.eventId}/tickets/${ticket.id}`} >
+      //  <ListGroupItem header={<div className='itemHeader' >
+      //    <p className={`risk ${riskColor (ticketRisk(customers[ticket.user_id].tickets_offered,
+      //      ticket.price,avgPrice,ticket.time_of_creation,ticketsInfo[ticket.id].comments_received))}`}>
+      //    </p>
       <Link className='ticketItem' key={ticket.id} to={`/home/events/${this.props.eventId}/tickets/${ticket.id}`} >
-        <ListGroupItem header={<div className='itemHeader' >
-          <p className={`risk ${riskColor (ticketRisk(customers[ticket.user_id].tickets_offered,
-            ticket.price,avgPrice,ticket.time_of_creation,ticketsInfo[ticket.id].comments_received))}`}>
-          </p>
-          <h4>{ticket.description}{' '}{ticket.price}&euro;</h4></div>
-        }>
-          <span> Seller: {customers[ticket.user_id].user_name} </span>
-        </ListGroupItem>
-      </Link>);
+
+          <h4>{ticket.description}{' '}{ticket.price}&euro;</h4>
+          </Link>
+      //  }>
+      //    <span> Seller: {customers[ticket.user_id].user_name} </span>
+      //  </ListGroupItem>
+     // </Link>
+      );
+      console.log("props.tickets")
+
+      console.log(this.props.tickets)
 
     return (
 

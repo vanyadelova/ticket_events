@@ -31,12 +31,18 @@ class validEvent {
 @JsonController()
 export default class EventsController {
 
-    @Get('/events')
+    /*@Get('/events')
     async getEvents() {
       const today = new Date().toISOString(); 
       const upcomingEvents = await Event.query(`select * from events where end_time >= '${today}'::date`);  
       return upcomingEvents;
-    }
+    }*/
+
+    @Get('/events')
+async allEvents() {
+   const events = await Event.find()
+  return { events }
+}
 
     @Get('/events/:id([0-9]+)')
     getEvent(
@@ -45,7 +51,8 @@ export default class EventsController {
       return Event.findOneById(id);
     }
 
-    @Authorized(['admin'])
+ //   @Authorized(['admin'])
+    @Authorized()
     @HttpCode(201)
     @Post('/events')
     async createEvent(

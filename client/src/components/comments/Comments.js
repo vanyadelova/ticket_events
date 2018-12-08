@@ -39,7 +39,12 @@ class Comments extends PureComponent {
                 { this.props.authenticated && <Button onClick={this.handleShow}  block>send a comment</Button>}
 
                 <div className='commentsBox'>
-                    {comments.map(comment => <p key={comment.id}><span className='purple' >{this.props.customers[comment.user_id].user_name}</span>:{' '} {comment.message}</p>)}
+                {console.log("this.props.TQTQTQ")}
+
+                    {console.log(this.props.customers)}
+                    {console.log(comments[0] )}
+
+                          {comments.map(comment => <p key={comment.id}><span className='purple' >{this.props.customers[14].user_name}</span>:{' '} {comment.message}</p>)}
                 </div>
 
                { this.props.authenticated && 

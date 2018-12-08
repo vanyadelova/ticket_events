@@ -6,10 +6,10 @@ const initialState = {
 export default (state = initialState, {type, payload}) => {
   switch (type) {
     case UPDATE_EVENTS:
-      return payload.reduce((events, event) => {
-        events[event.id] = event
-        return events
-      }, {});
+   //   return payload.reduce((events, event) => {
+    //    events[event.id] = event
+        return payload
+    
     case ADD_EVENT:
     console.log('event payload', payload)
       return {

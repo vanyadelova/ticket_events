@@ -43,9 +43,10 @@ class TicketsDetails extends PureComponent {
     const avgPrice = Object.values(tickets)
       .reduce((acc, currentticket) => {
         return  acc + currentticket.price },0) / Object.values(tickets).length;
-
-    const risk = ticketRisk(customers[ticket.user_id].tickets_offered,
-      ticket.price,avgPrice,ticket.time_of_creation,ticketsInfo[ticket.id].comments_received);
+console.log( this.props)
+console.log("custoòers")  
+    const risk = ticketRisk(customers[14].tickets_offered,
+      ticket.price,avgPrice,ticket.time_of_creation,ticketsInfo[0].comments_received);
 
     const tooltipLogout = (
       <Tooltip id="tooltip">
@@ -79,7 +80,7 @@ class TicketsDetails extends PureComponent {
             <OverlayTrigger placement="bottom" overlay={tooltipLogout} >
               <a className='log' onClick={this.props.logout} alt="Login"><i class="fas fa-user-alt"></i></a>
             </OverlayTrigger>}
-          <h1>Ticket from {customers[ticket.user_id].user_name}</h1>
+          <h1>Ticket from {customers[14].user_name}</h1>
           <p>We calculated that the risk of this ticket being a fraud is: {risk}%</p>
           <h2>{ticket.price}&euro;</h2>
         </Jumbotron>
@@ -115,11 +116,11 @@ class TicketsDetails extends PureComponent {
 }
 
 const mapStateToProps = (state, props) => ({
-  ticket: state.ticketsPerEvent === null ? null : state.ticketsPerEvent[props.match.params.id],
+  ticket: state.ticketsPerEvent === null ? null : state.ticketsPerEvent.filter( a => a.id===props.match.params.id), //state.ticketsPerEvent[props.match.params.id],
   tickets: state.ticketsPerEvent === null ? null : Object.values(state.ticketsPerEvent),
   authenticated: state.currentUser !== null,
   customers: state.Customers === null ? null : state.Customers,
   ticketsInfo: state.TicketsInfo === null ? null : state.TicketsInfo
 });
 
-export default connect(mapStateToProps, { getEvents, editTicket, getTicketsPerEvent, logout})(TicketsDetails)
+export default connect(mapStateToProps, { getEvents, editTicket, getTicketsPerEvent, logout})(TicketsDetails) 

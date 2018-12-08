@@ -22,9 +22,32 @@ export const getEvents = () => (dispatch) => {
       .catch(err => console.error(err))
   };
 
-export const createEvent = (payload) => {
+/*export const createEvent = (payload) => {
   return {
     type: ADD_EVENT,
     payload
   }
+}*/
+
+export const createEvent = (event) => (dispatch, getState) => {
+  const state = getState()
+  const jwt = state.currentUser.jwt
+
+  request
+    .post(`${baseUrl}/events`)
+    .set('Authorization', `Bearer ${jwt}`)
+    .send(event)
+    .then(response => dispatch({
+        type: ADD_EVENT,
+        payload: response.body
+    }))
+    .catch(err => console.error(err))
 }
+
+/*export const createEvent = () => (dispatch) => {
+
+  request
+    .post(`${baseUrl}/events`)
+    .then(result => dispatch(updateEvents(result.body)))
+    .catch(err => console.error(err))
+};*/
